@@ -1,0 +1,63 @@
+//Q5 : https://practice.geeksforgeeks.org/problems/subset-sum-problem2014/1
+
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution{
+public:
+    int sol(int arr[] , int n, int i, int k){
+        if(i>=n){
+            return 0;
+        }
+        if(k<0){
+            return 0;
+        }
+        if(k==0){
+           return 1; 
+        }
+        return sol(arr,n,i+1,k-arr[i]) || sol(arr,n,i+1,k);
+    }
+    int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum =0;
+        for(int i=0; i<N; i++){
+            sum = sum + arr[i];
+        }
+        
+        if(sum%2==1){
+            return 0;
+        }
+        int k = sum/2;
+        return sol(arr,N,0,k);
+        
+    }
+};
+
+//{ Driver Code Starts.
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        int arr[N];
+        for(int i = 0;i < N;i++)
+            cin>>arr[i];
+        
+        Solution ob;
+        if(ob.equalPartition(N, arr))
+            cout<<"YES\n";
+        else
+            cout<<"NO\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
