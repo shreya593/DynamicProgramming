@@ -1,0 +1,71 @@
+// Q1 : https://practice.geeksforgeeks.org/problems/perfect-sum-problem5633/1
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+    int c=0;
+   
+    void sol(int arr[], int n, int sum, int i,vector<vector<int>>&dp){
+        if(i==n && sum==0){
+                c++;
+                dp[sum][i] = c;
+                return;
+                //here if sum =0 and there are 0 till the end of the array
+        }
+        if(i>=n){
+            return;
+        }
+        
+        if(sum<0){
+            return;
+        }
+        if(dp[sum][i]!=-1){
+          c = dp[sum][i];
+          return;
+        }
+        sol(arr,n,sum-arr[i],i+1,dp);
+        sol(arr,n,sum,i+1,dp);
+        return;
+    }
+	public:
+	int perfectSum(int arr[], int n, int sum)
+	{
+        // Your code goes here
+        vector<vector<int>> dp(sum+1,vector<int>(n+1,-1));
+        sol(arr,n,sum,0,dp);
+       // cout<<endl;
+        return c;
+	}
+	  
+};
+
+//{ Driver Code Starts.
+int main() 
+{
+   	
+   
+   	int t;
+    cin >> t;
+    while (t--)
+    {
+        int n, sum;
+
+        cin >> n >> sum;
+
+        int a[n];
+        for(int i = 0; i < n; i++)
+        	cin >> a[i];
+
+       
+
+	    Solution ob;
+	    cout << ob.perfectSum(a, n, sum) << "\n";
+	     
+    }
+    return 0;
+}
+
+// } Driver Code Ends
