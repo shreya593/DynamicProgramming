@@ -1,0 +1,27 @@
+Q : https://leetcode.com/problems/coin-change-ii/
+
+class Solution {
+public:
+int sol(vector<int>coins, int amount,int index,vector<vector<int>>&dp){
+    if(index>coins.size()){
+       return 0;
+    }
+    if(amount==0){
+       return 1;
+    }
+    if(dp[amount][index]!=-1){
+      return dp[amount][index];
+    }
+    int path =0;
+    for(int i=index; i<coins.size(); i++){
+       if(amount-coins[i]>=0){
+          path = path + sol(coins,amount-coins[i],i,dp); // In coins=[1,2,5]find all combination with 1       
+       }                                              //then 2 then 5 
+    }
+    return dp[amount][index]=path;
+}
+    int change(int amount, vector<int>& coins) {
+       vector<vector<int>> dp(amount+1,vector<int>(coins.size()+1,-1));
+        return sol(coins,amount,0,dp);
+    }
+};
